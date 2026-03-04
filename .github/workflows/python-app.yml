@@ -53,13 +53,13 @@ jobs:
         port: 22
         script: |
           
-          docker stop app-users || true
-          docker rm --force app-users || true
+          docker stop app_users || true
+          docker rm --force app_users || true
           
           docker run -d -p 80:5001 \
             -e DATABASE_URL=${{ secrets.POSTGRES_URL }} \
             --network=rede \
-            --name app-users \
+            --name app_users \
             nicolasvolf/python-pg-app:${{ github.sha }}
 
 
