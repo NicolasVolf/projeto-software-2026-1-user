@@ -60,6 +60,6 @@ jobs:
             -e DATABASE_URL=${{ secrets.POSTGRES_URL }} \
             --network=rede \
             --name app-users \
-            nicolasvolf/python-pg-app:${{ github.sha }
+            nicolasvolf/python-pg-app:${{ github.sha }}
 
 
