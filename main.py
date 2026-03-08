@@ -1,9 +1,14 @@
 from flask import Flask, request, jsonify
 from db import db
 from models import User
+import os
+
+postgres_user = os.environ.get('POSTGRES_USER', 'appuser')
+postgres_password = os.environ.get('POSTGRES_PASSWORD', 'apppass')
+postgres_url = os.environ.get('POSTGRES_URL', 'localhost')
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "postgresql://appuser:apppass@localhost:5432/users"
+app.config["SQLALCHEMY_DATABASE_URI"] = f"postgresql://{postgres_user}:{postgres_password}@{postgres_url}:5432/users"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db.init_app(app)
@@ -26,9 +31,18 @@ def create_user():
         "email": user.email
     }), 201
 
+@app.route("/users/<uuid:user_id>", methods=["GET"])
+def delete_user(user_id):
+    user = User.query.get_or_404(user_id)
+
+    return jsonify({
+        "id": str(user.id),
+        "name": user.name,
+        "email": user.email
+    }), 201
 
 @app.route("/users/<uuid:user_id>", methods=["DELETE"])
-def delete_user(user_id):
+def get_user(user_id):
     user = User.query.get_or_404(user_id)
 
     db.session.delete(user)
