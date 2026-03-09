@@ -32,7 +32,7 @@ def create_user():
     }), 201
 
 @app.route("/users/<uuid:user_id>", methods=["GET"])
-def delete_user(user_id):
+def get_user(user_id):
     user = User.query.get_or_404(user_id)
 
     return jsonify({
@@ -42,7 +42,7 @@ def delete_user(user_id):
     }), 201
 
 @app.route("/users/<uuid:user_id>", methods=["DELETE"])
-def get_user(user_id):
+def delete_user(user_id):
     user = User.query.get_or_404(user_id)
 
     db.session.delete(user)
