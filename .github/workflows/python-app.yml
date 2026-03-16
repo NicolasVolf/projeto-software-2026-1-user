@@ -56,7 +56,7 @@ jobs:
           docker stop app_users || true
           docker rm --force app_users || true
           
-          docker run -d -p 80:5001 \
+          docker run -d -p 80:5000 \
             -e DATABASE_URL=${{ secrets.POSTGRES_URL }} \
             --network=rede \
             --name app_users \
