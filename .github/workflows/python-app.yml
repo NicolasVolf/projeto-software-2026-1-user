@@ -57,7 +57,7 @@ jobs:
           docker rm --force app_users || true
           
           docker run -d -p 80:5000 \
-            -e DATABASE_URL=${{ secrets.POSTGRES_URL }} \
+            -e POSTGRES_URL=${{ secrets.POSTGRES_URL }} \
             --network=rede \
             --name app_users \
             nicolasvolf/python-pg-app:${{ github.sha }}
