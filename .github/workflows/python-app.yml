@@ -45,22 +45,22 @@ jobs:
         tags: nicolasvolf/python-pg-app:${{ github.sha }}
 
     - name: executing remote ssh commands
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.HOST_TEST }}
-        username: "ubuntu"
-        key: ${{ secrets.KEY_TEST }}
-        port: 22
-        script: |
-          docker stop app_users || true
-          docker rm --force app_users || true
-          
-          docker run -d -p 80:5000 \
-            -e POSTGRES_URL=${{ secrets.POSTGRES_URL }} \
-            -e REDIS_URL=redis://redis:6379 \
-            --network=rede \
-            --name app_users \
-            nicolasvolf/python-pg-app:${{ github.sha }}
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST_TEST }}
+          username: "ubuntu"
+          key: ${{ secrets.KEY_TEST }}
+          port: 22
+          script: |
+            docker stop app_users || true
+            docker rm --force app_users || true
+            
+            docker run -d -p 80:5000 \
+              -e POSTGRES_URL=${{ secrets.POSTGRES_URL }} \
+              -e REDIS_URL=redis://redis:6379 \
+              --network=rede \
+              --name app_users \
+              nicolasvolf/python-pg-app:${{ github.sha }}
 
 
 
