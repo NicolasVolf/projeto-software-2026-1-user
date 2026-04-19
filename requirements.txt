@@ -7,3 +7,4 @@ pytest
 pytest-cov 
 testcontainers
 flask-cors
+python-jose[cryptography]
